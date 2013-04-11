@@ -1,3 +1,11 @@
+[04/10/2013]
+     Released.: Version 3.1.0
+     Added....: Host-Type Lists For Network Devices, *Nix, Printers, and Windows
+     Fixed....: Issue Where Building TCP/UDP Ports Lists Missed Valid Open Ports
+     Fixed....: Issue Where Building Alive Host Lists Missed Valid Hosts
+     Modified.: Renamed Default Parse Directory to Avoid Confusion
+     Modified.: Removed Unnecessary 'Port-' from Ports Files
+
 [03/05/2013]
      Released.: Version 3.0.1
      Modified.: Cosmetics
