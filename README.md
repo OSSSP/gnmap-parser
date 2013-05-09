@@ -12,7 +12,7 @@ Gnmap-Parser takes multiple Nmap scans exported in greppable (.gnmap) format and
 * Host Type Lists Based on Open Ports
 * Simple TCP/UDP Ports Lists Showing Unique Open Ports Discovered Across All Hosts
 * Port Files In "[#]-[TCP/UDP].txt" Format Consisting of Ordered Hosts
-* CSV Style Port Matrices in "[PORT],[PROTOCOL],[HOST]" Format
+* CSV Style Port Matrices In "[HOST],[PROTOCOL],[PORT]" Format
 * Third-Party Tool Input File Formats (Currently: PeepingTom)
 
 Usage
