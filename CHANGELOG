@@ -1,3 +1,11 @@
+[05/09/2013]
+     Released.: Version 3.2.0
+     Added....: Third-Party Directory For External Tool Inputs
+     Added....: Third-Party Input File Parsing For PeepingTom
+     Added....: THANKS File For Contributors
+     Modified.: Standardized Matrix CSV Format
+     Modified.: Cosmetics
+
 [04/10/2013]
      Released.: Version 3.1.0
      Added....: Host-Type Lists For Network Devices, *Nix, Printers, and Windows

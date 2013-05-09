@@ -13,6 +13,7 @@ portfdir=${parsedir}/Port-Files
 portmdir=${parsedir}/Port-Matrix
 hostldir=${parsedir}/Host-Lists
 hosttype=${parsedir}/Host-Type
+thrdprty=${parsedir}/Third-Party
 ipsorter='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 
 # Title Function
@@ -22,7 +23,7 @@ func_title(){
 
   # Print Title
   echo '============================================================================'
-  echo ' Gnmap-Parser.sh | [Version]: 3.1.0 | [Updated]: 04.10.2013'
+  echo ' Gnmap-Parser.sh | [Version]: 3.2.0 | [Updated]: 05.09.2013'
   echo '============================================================================'
   echo ' [By]: Michael Wright | [GitHub]: https://github.com/themightyshiv'
   echo '============================================================================'
@@ -61,7 +62,7 @@ func_parse(){
 
   # Create Parsing Directories If Non-Existent
   echo '[*] Preparing Directories...'
-  for d in ${parsedir} ${portldir} ${portfdir} ${portmdir} ${hostldir} ${hosttype}
+  for d in ${parsedir} ${portldir} ${portfdir} ${portmdir} ${hostldir} ${hosttype} ${thrdprty}
   do
     if [ ! -d ${d} ]
     then
@@ -143,7 +144,7 @@ func_parse(){
     func_title
     echo '[*] Building TCP Services Matrix...'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    cat *.gnmap|grep " ${i}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/^/${i},TCP,/g"|${ipsorter} >> ${portmdir}/TCP-Services-Matrix.txt
+    cat *.gnmap|grep " ${i}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,TCP,${i}/g"|${ipsorter} >> ${portmdir}/TCP-Services-Matrix.txt
   done
 
   # Build UDP Services Matrix
@@ -153,7 +154,17 @@ func_parse(){
     func_title
     echo '[*] Building UDP Services Matrix...'
     echo "The Current UDP Port Is: ${UDPPORT}"
-    cat *.gnmap|grep " ${i}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/^/${i},UDP,/g"|${ipsorter} >> ${portmdir}/UDP-Services-Matrix.txt
+    cat *.gnmap|grep " ${i}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,UDP,${i}/g"|${ipsorter} >> ${portmdir}/UDP-Services-Matrix.txt
+  done
+
+  # Build PeepingTom Input File
+  for i in `cat ${portldir}/TCP-Ports-List.txt`
+  do
+    TCPPORT="$i"
+    func_title
+    echo '[*] Building PeepingTom Input File...'
+    echo "The Current TCP Port Is: ${TCPPORT}"
+    cat *.gnmap|grep " ${i}/open/tcp//http"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
   done
 
   # Remove Empty Files

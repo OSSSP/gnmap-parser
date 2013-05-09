@@ -1,4 +1,4 @@
-Gnmap-Parser 3.1.0
+Gnmap-Parser 3.2.0
 ==================
 
 Description
@@ -13,6 +13,7 @@ Gnmap-Parser takes multiple Nmap scans exported in greppable (.gnmap) format and
 * Simple TCP/UDP Ports Lists Showing Unique Open Ports Discovered Across All Hosts
 * Port Files In "[#]-[TCP/UDP].txt" Format Consisting of Ordered Hosts
 * CSV Style Port Matrices in "[PORT],[PROTOCOL],[HOST]" Format
+* Third-Party Tool Input File Formats (Currently: PeepingTom)
 
 Usage
 -----
