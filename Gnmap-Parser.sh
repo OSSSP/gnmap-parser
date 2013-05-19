@@ -23,7 +23,7 @@ func_title(){
 
   # Print Title
   echo '============================================================================'
-  echo ' Gnmap-Parser.sh | [Version]: 3.2.0 | [Updated]: 05.09.2013'
+  echo ' Gnmap-Parser.sh | [Version]: 3.2.1 | [Updated]: 05.19.2013'
   echo '============================================================================'
   echo ' [By]: Michael Wright | [GitHub]: https://github.com/themightyshiv'
   echo '============================================================================'
@@ -144,7 +144,7 @@ func_parse(){
     func_title
     echo '[*] Building TCP Services Matrix...'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    cat *.gnmap|grep " ${i}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,TCP,${i}/g"|${ipsorter} >> ${portmdir}/TCP-Services-Matrix.txt
+    cat *.gnmap|grep " ${i}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,TCP,${i}/g"|${ipsorter} >> ${portmdir}/TCP-Services-Matrix.csv
   done
 
   # Build UDP Services Matrix
@@ -154,7 +154,7 @@ func_parse(){
     func_title
     echo '[*] Building UDP Services Matrix...'
     echo "The Current UDP Port Is: ${UDPPORT}"
-    cat *.gnmap|grep " ${i}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,UDP,${i}/g"|${ipsorter} >> ${portmdir}/UDP-Services-Matrix.txt
+    cat *.gnmap|grep " ${i}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,UDP,${i}/g"|${ipsorter} >> ${portmdir}/UDP-Services-Matrix.csv
   done
 
   # Build PeepingTom Input File
