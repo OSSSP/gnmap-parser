@@ -23,7 +23,7 @@ func_title(){
 
   # Print Title
   echo '============================================================================'
-  echo ' Gnmap-Parser.sh | [Version]: 3.2.1 | [Updated]: 05.19.2013'
+  echo ' Gnmap-Parser.sh | [Version]: 3.3.0 | [Updated]: 05.24.2013'
   echo '============================================================================'
   echo ' [By]: Michael Wright | [GitHub]: https://github.com/themightyshiv'
   echo '============================================================================'
@@ -44,6 +44,26 @@ func_gather(){
   exit 0
 }
 
+# Heuristic Gather Gnmap Files Function
+func_heuristic(){
+  echo '[?] Enter The Parent Directory Where Your Gnmap Files Are Located.'
+  echo
+  read -p '[>] Parent Directory: ' floc
+  script=`echo ${0}|sed -e 's:./::g'`
+  func_title
+  echo '[*] Heuristically Gathering .gnmap Files'
+  greppr=`find ${floc} -type f -not -name ${script} -exec grep -Hlrz "# Nmap.*scan initiated.*as: nmap.*Host:.*(.*).*Status:" {} \;`
+  for i in `echo ${greppr}`
+  do
+    filename=`echo ${i}|sed -e "s:.*/::g" -e 's/.gnmap//'`
+    cp ${i} ./${filename}.gnmap >>/dev/null 2>&1
+  done
+  func_title
+  echo "[*] Gathered `ls *.gnmap|wc -l` .gnmap Files"
+  echo
+  exit 0
+}
+
 # Function To Parse .gnmap Files
 func_parse(){
   # Check For .gnmap Files Before Parsing
@@ -54,8 +74,9 @@ func_parse(){
     echo
     echo '--[ Possible Fixes ]--'
     echo
-    echo '[1]: Run this script with option (-g).'
-    echo '[2]: Place this script in a folder with all (*.gnmap) files.'
+    echo '[1]: If all of your gnmap files have the correct extension, use option (-g).'
+    echo '[2]: If some of your gnmap files dont have the extension, use option (-h).'
+    echo '[3]: Place this script in a directory with all relevant *.gnmap files.'
     echo
     exit 1
   fi
@@ -185,13 +206,17 @@ case ${1} in
   -g|--gather)
     func_gather
     ;;
+  -h|--heuristic)
+    func_heuristic
+    ;;
   -p|--parse)
     func_parse
     ;;
   *)
     echo ' [Usage]...: ./Gnmap-Parser.sh [OPTION]'
     echo ' [Options].:'
-    echo '             -g | --gather = Gather .gnmap Files'
-    echo '             -p | --parse  = Parse .gnmap Files'
+    echo '             -g | --gather    = Gather .gnmap Files'
+    echo '             -h | --heuristic = Heuristically Gather .gnmap Files'
+    echo '             -p | --parse     = Parse .gnmap Files'
     echo
 esac

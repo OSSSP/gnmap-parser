@@ -1,3 +1,8 @@
+[05/24/2013]
+     Released.: Version 3.3.0
+     Added....: -h Option (Heuristically Gather gnmap Files Regardless of Extension)
+     Modified.: Cosmetics 
+
 [05/19/2013]
      Released.: Version 3.2.1
      Modified.: Changed Port Matrix Extension to .csv

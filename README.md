@@ -1,4 +1,4 @@
-Gnmap-Parser 3.2.1
+Gnmap-Parser 3.3.0
 ==================
 
 Description
@@ -19,13 +19,14 @@ Usage
 -----
 **Supported Switches:**
 
-* -g | --gather = Gather .gnmap Files
-* -p | --parse  = Parse .gnmap Files
+* -g | --gather    = Gather .gnmap Files (faster but only finds files with .gnmap extension)
+* -h | --heuristic = Heuristically Gather .gnmap Files (slower but finds files regardless of extension)
+* -p | --parse     = Parse .gnmap Files
 
 **Limitations:**
 
-* Gnmap-Parser will only parse *.gnmap files that are in the same directory that it resides. For this reason, the gather switch (-g) was 
-implemented to copy *.gnmap from their discovered locations into the scripts working directory. Any path will work as Gnmap-Parser will traverse all
+* Gnmap-Parser will only parse *.gnmap files that are in the same directory that it resides. For this reason, the gather switches (-g) and (-h) were 
+implemented to copy .gnmap files from their known locations into the scripts working directory. Any path will work as Gnmap-Parser will traverse all
 subdirectories. For instance, providing a parent directory of "/" will traverse the entire root filesystem looking for *.gnmap files.
 
 * Gnmap-Parser currently only parses files that end with the .gnmap extension. If using the -oA switch of Nmap, these files will already
