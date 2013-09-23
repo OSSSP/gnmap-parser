@@ -1,5 +1,5 @@
-Gnmap-Parser 3.3.0
-==================
+Gnmap-Parser
+============
 
 Description
 -----------
