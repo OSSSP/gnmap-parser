@@ -23,7 +23,7 @@ func_title(){
 
   # Print Title
   echo '============================================================================'
-  echo ' Gnmap-Parser.sh | [Version]: 3.3.2 | [Updated]: 09.23.2013'
+  echo ' Gnmap-Parser.sh | [Version]: 3.3.3 | [Updated]: 10.24.2013'
   echo '============================================================================'
   echo ' [By]: Michael Wright | [GitHub]: https://github.com/themightyshiv'
   echo '============================================================================'
@@ -185,7 +185,7 @@ func_parse(){
     func_title
     echo '[*] Building PeepingTom Input File...'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    cat *.gnmap|grep " ${i}/open/tcp//http/\| ${i}/open/tcp//http-alt/\| ${i}/open/tcp//http?/"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.http://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
+    cat *.gnmap|grep " ${i}/open/tcp//http/\| ${i}/open/tcp//http-alt/\| ${i}/open/tcp//http?/\| ${i}/open/tcp//http-proxy/"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.http://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
     cat *.gnmap|grep " ${i}/open/tcp//https/\| ${i}/open/tcp//https-alt/\| ${i}/open/tcp//https?/\| ${i}/open/tcp//ssl|http/"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.https://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
   done
 
