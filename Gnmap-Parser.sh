@@ -1,10 +1,4 @@
 #!/bin/bash
-#####################################################################################
-# Gnmap-Parser.sh
-#####################################################################################
-# Description: Script to parse large amounts of Nmap (.gnmap) exported scan files
-#              into multiple plain-text formats for easy analysis.
-#####################################################################################
 
 # Global Variables
 parsedir=Gnmap-Parser-Results
@@ -23,9 +17,7 @@ func_title(){
 
   # Print Title
   echo '============================================================================'
-  echo ' Gnmap-Parser.sh | [Version]: 3.3.3 | [Updated]: 10.24.2013'
-  echo '============================================================================'
-  echo ' [By]: Michael Wright | [GitHub]: https://github.com/themightyshiv'
+  echo ' Gnmap-Parser.sh | [Version]: 3.3.4 | [Updated]: 03.06.2014'
   echo '============================================================================'
   echo
 }
@@ -68,8 +60,7 @@ func_heuristic(){
 func_parse(){
   # Check For .gnmap Files Before Parsing
   fcheck=`ls|grep ".gnmap"|wc -l`
-  if [ "${fcheck}" -lt '1' ]
-  then
+  if [ "${fcheck}" -lt '1' ]; then
     echo '[Failed]: No Gnmap Files Found (*.gnmap).'
     echo
     echo '--[ Possible Fixes ]--'
@@ -85,8 +76,7 @@ func_parse(){
   echo '[*] Preparing Directories...'
   for d in ${parsedir} ${portldir} ${portfdir} ${portmdir} ${hostldir} ${hosttype} ${thrdprty}
   do
-    if [ ! -d ${d} ]
-    then
+    if [ ! -d ${d} ]; then
         mkdir ${d}
     fi
   done
@@ -185,8 +175,10 @@ func_parse(){
     func_title
     echo '[*] Building PeepingTom Input File...'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    cat *.gnmap|grep " ${i}/open/tcp//http/\| ${i}/open/tcp//http-alt/\| ${i}/open/tcp//http?/\| ${i}/open/tcp//http-proxy/\| ${i}/open/tcp//appserv-http/"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.http://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
-    cat *.gnmap|grep " ${i}/open/tcp//https/\| ${i}/open/tcp//https-alt/\| ${i}/open/tcp//https?/\| ${i}/open/tcp//ssl|http/"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.https://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
+    cat *.gnmap|grep " ${i}/open/tcp//http/\| ${i}/open/tcp//http-alt/\| ${i}/open/tcp//http?/\| ${i}/open/tcp//http-proxy/\| ${i}/open/tcp//appserv-http/"|\
+                sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.http://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
+    cat *.gnmap|grep " ${i}/open/tcp//https/\| ${i}/open/tcp//https-alt/\| ${i}/open/tcp//https?/\| ${i}/open/tcp//ssl|http/"|\
+                sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.https://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
   done
 
   # Remove Empty Files
