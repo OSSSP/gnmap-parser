@@ -19,9 +19,9 @@ Usage
 -----
 **Supported Switches:**
 
-* -g | --gather    = Gather .gnmap Files (faster but only finds files with .gnmap extension)
-* -h | --heuristic = Heuristically Gather .gnmap Files (slower but finds files regardless of extension)
-* -p | --parse     = Parse .gnmap Files
+* -g  = Gather .gnmap files (faster but only finds files with .gnmap extension).
+* -gg = Heuristically gather .gnmap files (slower but finds files regardless of extension).
+* -p  = Parse .gnmap files.
 
 **Limitations:**
 
