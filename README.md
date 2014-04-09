@@ -25,9 +25,9 @@ Usage
 
 **Limitations:**
 
-* Gnmap-Parser will only parse *.gnmap files that are in the same directory that it resides. For this reason, the gather switches (-g) and (-h) were 
+* Gnmap-Parser will only parse *.gnmap files that are in the same directory that it resides. For this reason, the gather switches (-g) and (-gg) were 
 implemented to copy .gnmap files from their known locations into the scripts working directory. Any path will work as Gnmap-Parser will traverse all
 subdirectories. For instance, providing a parent directory of "/" will traverse the entire root filesystem looking for *.gnmap files.
 
 * Gnmap-Parser currently only parses files that end with the .gnmap extension. If using the -oA switch of Nmap, these files will already
-be named with the correct extension. If specifying the -oG switch, be sure to append .gnmap to the filename.
+be named with the correct extension. If specifying the -oG switch, be sure to append .gnmap to the filename or use the (-gg) switch.

@@ -1,6 +1,8 @@
 [04/09/2014]
-     Released.: Version 3.4.0
+     Released.: Version 3.4.1
      Added....: Ability to parse after gathering.
+     Added....: Ability to specify directory for gathering after -g and -gg switches.
+     Added....: Additional validation checks.
      Fixed....: Duplicated matrix and 3rd party data when parsing same .gnmaps multiple times.
      Modified.: Changed heuristic gather option from -h to -gg.
      Modified.: Further standardized and optimized codebase, function cleanup, and cosmetics.

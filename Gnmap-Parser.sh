@@ -14,47 +14,80 @@ ipsorter='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 func_title(){
   clear
   echo '============================================================================'
-  echo ' Gnmap-Parser.sh | [Version]: 3.4.0 | [Updated]: 04.09.2014'
+  echo ' Gnmap-Parser.sh | [Version]: 3.4.1 | [Updated]: 04.09.2014'
   echo '============================================================================'
   echo
 }
 
 # Gather Gnmap Files Function
 func_gather(){
-  echo '[?] Enter the parent directory where your gnmap files are located.'
-  read -p '[>] Parent Directory: ' floc
+  # Validation Checks For Path Arguments
+  if [ "${1}" == '' ]; then
+    echo '[?] Enter the parent directory where your gnmap files are located.'
+    read -p '[>] Parent Directory: ' floc
+  else
+    floc=$(echo ${1})
+  fi
+  # Validation Checks For Existent Directories
+  if [ ! -d ${floc} ]; then
+    func_title
+    echo "[!] Error: ${floc} does not exist."
+    func_gather
+  fi
+  # Begin Gathering Gnmap Files Normally
   echo '[*] Gathering .gnmap Files'
   find ${floc} -name *.gnmap -exec cp {} . \; >>/dev/null 2>&1
-  echo "[*] Gathered $(ls *.gnmap|wc -l) .gnmap Files"
-  read -p '[>] Parse gathered .gnmap files? (y/n): ' parse
-  if [ ${parse} == 'y' ]; then
-    func_parse
-  else
-    echo '[*] Exiting'
-    echo
-    exit 0
+  gathered=$(ls *|grep ".gnmap"|wc -l)
+  echo "[*] Gathered ${gathered} .gnmap Files"
+  # Validation Checks For Gathered Gnmap Files
+  if [ ${gathered} -gt '0' ]; then
+    read -p '[>] Parse gathered .gnmap files? (y/n): ' parse
+    if [ ${parse} == 'y' ]; then
+      func_parse
+    else
+      echo '[*] Exiting'
+      echo
+      exit 0
+    fi
   fi
 }
 
 # Heuristically Gather Gnmap Files Function
 func_heuristic(){
-  echo '[?] Enter the parent directory where your gnmap files are located.'
-  read -p '[>] Parent Directory: ' floc
+  # Local Variables
   script=$(echo ${0}|sed -e 's:./::g')
+  # Validation Checks For Path Arguments
+  if [ "${1}" == '' ]; then
+    echo '[?] Enter the parent directory where your gnmap files are located.'
+    read -p '[>] Parent Directory: ' floc
+  else
+    floc=$(echo ${1})
+  fi
+  # Validation Checks For Existent Directories
+  if [ ! -d ${floc} ]; then
+    func_title
+    echo "[!] Error: ${floc} does not exist."
+    func_heuristic
+  fi
+  # Begin Gathering Gnmap Files Heuristically
   echo '[*] Heuristically Gathering .gnmap Files'
   greppr=$(find ${floc} -type f -not -name ${script} -exec grep -Hlrz "# Nmap.*scan initiated.*as: nmap.*Host:.*(.*).*Status:" {} \;)
   for file in $(echo ${greppr}); do
     filename=$(echo ${file}|sed -e "s:.*/::g" -e 's/.gnmap//')
     cp ${file} ./${filename}.gnmap >>/dev/null 2>&1
   done
-  echo "[*] Gathered $(ls *.gnmap|wc -l) .gnmap Files"
-  read -p '[>] Parse gathered .gnmap files? (y/n): ' parse
-  if [ ${parse} == 'y' ]; then
-    func_parse
-  else
-    echo '[*] Exiting'
-    echo
-    exit 0
+  # Validation Checks For Gathered Gnmap Files
+  gathered=$(ls *|grep ".gnmap"|wc -l)
+  echo "[*] Gathered ${gathered} .gnmap Files"
+  if [ ${gathered} -gt '0' ]; then
+    read -p '[>] Parse gathered .gnmap files? (y/n): ' parse
+    if [ ${parse} == 'y' ]; then
+      func_parse
+    else
+      echo '[*] Exiting'
+      echo
+      exit 0
+    fi
   fi
 }
 
@@ -208,10 +241,10 @@ func_parse(){
 func_title
 case ${1} in
   -g)
-    func_gather
+    func_gather ${2}
     ;;
   -gg)
-    func_heuristic
+    func_heuristic ${2}
     ;;
   -p|--parse)
     func_parse
