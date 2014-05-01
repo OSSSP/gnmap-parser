@@ -1,3 +1,7 @@
+[05/01/2014]
+     Released.: Version 3.4.2
+     Fixed....: Issue where result outputs included filename.
+
 [04/09/2014]
      Released.: Version 3.4.1
      Added....: Ability to parse after gathering.

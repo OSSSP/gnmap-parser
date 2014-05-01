@@ -14,7 +14,7 @@ ipsorter='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 func_title(){
   clear
   echo '============================================================================'
-  echo ' Gnmap-Parser.sh | [Version]: 3.4.1 | [Updated]: 04.09.2014'
+  echo ' Gnmap-Parser.sh | [Version]: 3.4.2 | [Updated]: 05.01.2014'
   echo '============================================================================'
   echo
 }
@@ -168,7 +168,7 @@ func_parse(){
     func_title
     echo '[*] Building TCP Port Files'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    grep " ${TCPPORT}/open/tcp" *.gnmap|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/${TCPPORT}-TCP.txt
+    cat *.gnmap|grep " ${TCPPORT}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/${TCPPORT}-TCP.txt
   done
 
   # Build UDP Port Files
@@ -177,7 +177,7 @@ func_parse(){
     func_title
     echo '[*] Building UDP Port Files'
     echo "The Current UDP Port Is: ${UDPPORT}"
-    grep " ${UDPPORT}/open/udp" *.gnmap|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/${UDPPORT}-UDP.txt
+    cat *.gnmap|grep " ${UDPPORT}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/${UDPPORT}-UDP.txt
   done
 
   # Remove Stale Matrices
@@ -195,7 +195,7 @@ func_parse(){
     func_title
     echo '[*] Building TCP Services Matrix'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    grep " ${port}/open/tcp" *.gnmap|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,TCP,${port}/g"|${ipsorter} >> ${portmdir}/TCP-Services-Matrix.csv
+    cat *.gnmap|grep " ${port}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,TCP,${port}/g"|${ipsorter} >> ${portmdir}/TCP-Services-Matrix.csv
   done
 
   # Build UDP Services Matrix
@@ -204,7 +204,7 @@ func_parse(){
     func_title
     echo '[*] Building UDP Services Matrix'
     echo "The Current UDP Port Is: ${UDPPORT}"
-    grep " ${port}/open/udp" *.gnmap|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,UDP,${port}/g"|${ipsorter} >> ${portmdir}/UDP-Services-Matrix.csv
+    cat *.gnmap|grep " ${port}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/$/,UDP,${port}/g"|${ipsorter} >> ${portmdir}/UDP-Services-Matrix.csv
   done
 
   # Remove Stale PeepingTom File
@@ -220,9 +220,9 @@ func_parse(){
     func_title
     echo '[*] Building PeepingTom Input File'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    grep " ${i}/open/tcp//http/\| ${i}/open/tcp//http-alt/\| ${i}/open/tcp//http?/\| ${i}/open/tcp//http-proxy/\| ${i}/open/tcp//appserv-http/" *.gnmap|\
+    cat *.gnmap|grep " ${i}/open/tcp//http/\| ${i}/open/tcp//http-alt/\| ${i}/open/tcp//http?/\| ${i}/open/tcp//http-proxy/\| ${i}/open/tcp//appserv-http/"|\
          sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.http://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
-    grep " ${i}/open/tcp//https/\| ${i}/open/tcp//https-alt/\| ${i}/open/tcp//https?/\| ${i}/open/tcp//ssl|http/" *.gnmap|\
+    cat *.gnmap|grep " ${i}/open/tcp//https/\| ${i}/open/tcp//https-alt/\| ${i}/open/tcp//https?/\| ${i}/open/tcp//ssl|http/"|\
          sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.https://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
   done
 
