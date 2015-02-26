@@ -225,7 +225,10 @@ func_parse(){
     cat *.gnmap|grep " ${i}/open/tcp//https/\| ${i}/open/tcp//https-alt/\| ${i}/open/tcp//https?/\| ${i}/open/tcp//ssl|http/"|\
          sed -e 's/Host: //g' -e 's/ (.*//g' -e "s.^.https://.g" -e "s/$/:${i}/g"|${ipsorter} >> ${thrdprty}/PeepingTom.txt
   done
-
+  
+  #cypherg proto strip
+  cat ${thrdprty}/PeepingTom.txt | awk '{gsub("http://",""); gsub("https://",""); print $0}' >> ${thrdprty}/IP_PORT.txt
+  
   # Remove Empty Files
   func_title
   echo '[*] Removing Empty Files'
