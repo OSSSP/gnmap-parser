@@ -7,11 +7,11 @@
 #####################################################################################
 
 # Global Variables
-parsedir=Gnmap-Parser
-portldir=${parsedir}/Port-Lists
-portfdir=${parsedir}/Port-Files
-portmdir=${parsedir}/Port-Matrix
-hostldir=${parsedir}/Host-Lists
+parsedir=gnmap-parser
+portldir=${parsedir}/port-lists
+portfdir=${parsedir}/port-files
+portmdir=${parsedir}/port-matrix
+hostldir=${parsedir}/host-lists
 ipsorter='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 
 # Title Function
