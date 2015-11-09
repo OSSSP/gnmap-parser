@@ -71,57 +71,57 @@ func_parse(){
   # Build Alive Hosts Lists
   func_title
   echo '[*] Building Alive Hosts Lists...'
-  cat *.gnmap|awk '!/#|Status: Down/'|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${hostldir}/Alive-Hosts-ICMP.txt
-  cat *.gnmap|awk '!/#/'|grep "open/"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${hostldir}/Alive-Hosts-Open-Ports.txt
+  cat *.gnmap|awk '!/#|Status: Down/'|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${hostldir}/alive-hosts-icmp.txt
+  cat *.gnmap|awk '!/#/'|grep "open/"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${hostldir}/alive-hosts-open-ports.txt
 
   # Build TCP Ports List
   func_title
   echo '[*] Building TCP Ports List...'
-  cat *.gnmap|grep "Ports:"|sed -e 's/^.*Ports: //g' -e 's;/, ;\n;g'|awk '!/udp|filtered/'|cut -d"/" -f 1|sort -n -u > ${portldir}/TCP-Ports-List.txt
+  cat *.gnmap|grep "Ports:"|sed -e 's/^.*Ports: //g' -e 's;/, ;\n;g'|awk '!/udp|filtered/'|cut -d"/" -f 1|sort -n -u > ${portldir}/tcp-ports-list.txt
 
   # Build UDP Ports List
   func_title
   echo '[*] Building UDP Ports List...'
-  cat *.gnmap|grep "Ports:"|sed -e 's/^.*Ports: //g' -e 's;/, ;\n;g'|awk '!/tcp|filtered/'|cut -d"/" -f 1|sort -n -u > ${portldir}/UDP-Ports-List.txt
+  cat *.gnmap|grep "Ports:"|sed -e 's/^.*Ports: //g' -e 's;/, ;\n;g'|awk '!/tcp|filtered/'|cut -d"/" -f 1|sort -n -u > ${portldir}/udp-ports-list.txt
 
   # Build TCP Port Files
-  for i in `cat ${portldir}/TCP-Ports-List.txt`
+  for i in `cat ${portldir}/tcp-ports-list.txt`
   do
     TCPPORT="$i"
     func_title
     echo '[*] Building TCP Port Files...'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    cat *.gnmap|grep " ${TCPPORT}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/Port-${TCPPORT}-TCP.txt
+    cat *.gnmap|grep " ${TCPPORT}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/port-${TCPPORT}-tcp.txt
   done
 
   # Build UDP Port Files
-  for i in `cat ${portldir}/UDP-Ports-List.txt`
+  for i in `cat ${portldir}/udp-ports-list.txt`
   do
     UDPPORT="$i"
     func_title
     echo '[*] Building UDP Port Files...'
     echo "The Current UDP Port Is: ${UDPPORT}"
-    cat *.gnmap|grep " ${UDPPORT}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/Port-${UDPPORT}-UDP.txt
+    cat *.gnmap|grep " ${UDPPORT}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g'|${ipsorter} > ${portfdir}/port-${UDPPORT}-udp.txt
   done
 
   # Build TCP Services Matrix
-  for i in `cat ${portldir}/TCP-Ports-List.txt`
+  for i in `cat ${portldir}/tcp-ports-list.txt`
   do
     TCPPORT="$i"
     func_title
     echo '[*] Building TCP Services Matrix...'
     echo "The Current TCP Port Is: ${TCPPORT}"
-    cat *.gnmap|grep " ${i}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/^/${i},TCP,/g"|${ipsorter} >> ${portmdir}/TCP-Services-Matrix.txt
+    cat *.gnmap|grep " ${i}/open/tcp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/^/${i},TCP,/g"|${ipsorter} >> ${portmdir}/tcp-services-matrix.txt
   done
 
   # Build UDP Services Matrix
-  for i in `cat ${portldir}/UDP-Ports-List.txt`
+  for i in `cat ${portldir}/udp-ports-list.txt`
   do
     UDPPORT="$i"
     func_title
     echo '[*] Building UDP Services Matrix...'
     echo "The Current UDP Port Is: ${UDPPORT}"
-    cat *.gnmap|grep " ${i}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/^/${i},UDP,/g"|${ipsorter} >> ${portmdir}/UDP-Services-Matrix.txt
+    cat *.gnmap|grep " ${i}/open/udp"|sed -e 's/Host: //g' -e 's/ (.*//g' -e "s/^/${i},UDP,/g"|${ipsorter} >> ${portmdir}/udp-services-matrix.txt
   done
 
   # Remove Empty Files
