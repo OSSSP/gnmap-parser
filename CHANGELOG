@@ -1,3 +1,54 @@
+[05/01/2014]
+     Released.: Version 3.4.2
+     Fixed....: Issue where result outputs included filename.
+
+[04/09/2014]
+     Released.: Version 3.4.1
+     Added....: Ability to parse after gathering.
+     Added....: Ability to specify directory for gathering after -g and -gg switches.
+     Added....: Additional validation checks.
+     Fixed....: Duplicated matrix and 3rd party data when parsing same .gnmaps multiple times.
+     Modified.: Changed heuristic gather option from -h to -gg.
+     Modified.: Further standardized and optimized codebase, function cleanup, and cosmetics.
+     Modified.: Updated README
+
+[03/06/2014]
+     Released.: Version 3.3.4
+     Modified.: Cosmetics and Very Minor Code Cleanup
+
+[10/24/2013]
+     Released.: Version 3.3.3
+     Fixed....: More Issues In Generating PeepingTom Output Files
+
+[09/23/2013]
+     Released.: Version 3.3.2
+     Fixed....: Issue In Generating PeepingTom Output Files
+
+[05/24/2013]
+     Released.: Version 3.3.0
+     Added....: -h Option (Heuristically Gather gnmap Files Regardless of Extension)
+     Modified.: Cosmetics 
+
+[05/19/2013]
+     Released.: Version 3.2.1
+     Modified.: Changed Port Matrix Extension to .csv
+
+[05/09/2013]
+     Released.: Version 3.2.0
+     Added....: Third-Party Directory For External Tool Inputs
+     Added....: Third-Party Input File Parsing For PeepingTom
+     Added....: THANKS File For Contributors
+     Modified.: Standardized Matrix CSV Format
+     Modified.: Cosmetics
+
+[04/10/2013]
+     Released.: Version 3.1.0
+     Added....: Host-Type Lists For Network Devices, *Nix, Printers, and Windows
+     Fixed....: Issue Where Building TCP/UDP Ports Lists Missed Valid Open Ports
+     Fixed....: Issue Where Building Alive Host Lists Missed Valid Hosts
+     Modified.: Renamed Default Parse Directory to Avoid Confusion
+     Modified.: Removed Unnecessary 'Port-' from Ports Files
+
 [03/05/2013]
      Released.: Version 3.0.1
      Modified.: Cosmetics
